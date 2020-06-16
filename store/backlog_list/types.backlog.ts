@@ -3,6 +3,7 @@ export interface Backlog {
   text: string;
   completed: boolean;
   important: boolean;
+  createdAt: string;
 }
 
 export interface State {
