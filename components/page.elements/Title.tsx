@@ -10,13 +10,18 @@ interface Props<T, B> {
   ctaPath?: T;
   bg?: T;
   color?: T;
+  center?: B;
 }
 
-interface TitleProps<T> {
+interface TitleProps<T, B> {
   bg?: T;
   color?: T;
+  center?: B;
 }
-const StyledTitle = styled.div<TitleProps<string>>``;
+
+const StyledTitle = styled.div<TitleProps<string, boolean>>`
+  text-align: ${({ center }) => center && 'center'};
+`;
 
 const Title: React.FC<Props<string, boolean>> = ({
   main,
@@ -26,13 +31,14 @@ const Title: React.FC<Props<string, boolean>> = ({
   ctaPath,
   bg,
   color,
+  center,
 }) => {
   const options = {
     ctaText: ctaText ? ctaText : 'About',
     path: ctaPath ? ctaPath : '/about',
   };
   return (
-    <StyledTitle>
+    <StyledTitle center={center} bg={bg} color={color}>
       <h1>{main}</h1>
       {subTitle && <h3>{subTitle}</h3>}
       {cta && (

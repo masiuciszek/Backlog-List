@@ -6,6 +6,7 @@ import BacklogItem from './BacklogItem';
 
 import BacklogFooter from './BacklogFooter';
 import { selectBacklogs } from '../../store/backlog_list/Backlog.select';
+import BacklogForm from './Backlog.form';
 
 interface Props {}
 
@@ -14,6 +15,7 @@ const BacklogList: React.FC<Props> = () => {
 
   return (
     <StyledBacklog>
+      <BacklogForm />
       <ListStyles>
         {backlogs.length > 0 ? (
           backlogs.map((item) => <BacklogItem key={item.text} item={item} />)

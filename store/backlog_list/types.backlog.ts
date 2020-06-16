@@ -4,6 +4,7 @@ export interface Backlog {
   completed: boolean;
   desc: string;
   important: boolean;
+  liked: boolean;
   createdAt: string;
 }
 

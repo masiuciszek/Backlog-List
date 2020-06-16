@@ -8,7 +8,7 @@ interface Props {
 }
 
 const BacklogItem: React.FC<Props> = ({ item }) => {
-  const { text, completed, important, createdAt, desc } = item;
+  const { text, completed, important, createdAt, desc, liked } = item;
   let date = createdAt.slice(0, 10).split('-');
   const [year, month, day] = date;
 
@@ -30,7 +30,7 @@ const BacklogItem: React.FC<Props> = ({ item }) => {
         <p>{desc}</p>
       </Wrapper>
       <Star>
-        <img src={important ? '/filled.png' : '/unfilled.png'} alt="" />
+        <img src={liked ? '/filled.png' : '/unfilled.png'} alt="star" />
       </Star>
     </StyledItem>
   );
@@ -57,7 +57,6 @@ const Wrapper = styled.div`
     font-size: 2rem;
     &:nth-child(1) {
       text-transform: capitalize;
-
       width: 35%;
     }
     &:nth-child(2) {
@@ -65,9 +64,8 @@ const Wrapper = styled.div`
       margin: 0 auto;
       text-align: center;
       color: ${({ theme }) => theme.colors.secondary};
-
       width: 79%;
-      font-size: 1.5rem;
+      font-size: 1.6rem;
     }
   }
 `;

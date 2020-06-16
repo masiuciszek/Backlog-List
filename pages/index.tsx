@@ -10,7 +10,9 @@ export interface Backlog {
   id: string;
   text: string;
   completed: boolean;
+  desc: string;
   important: boolean;
+  liked: boolean;
   createdAt: string;
 }
 
@@ -25,7 +27,7 @@ const HomePage: NextPage<Props> = ({ backlogs }) => {
   }, []);
   return (
     <>
-      <Title main="Backlog List" />
+      <Title main="Backlog List" center />
       <Page>
         <BacklogList />
       </Page>

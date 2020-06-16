@@ -4,25 +4,48 @@ import { handleFlex } from '../styled/utils/flex';
 interface Props {}
 
 const BacklogFooter: React.FC<Props> = () => {
+  const [checkedData, setCheckedData] = React.useState({
+    all: true,
+    completed: false,
+    important: false,
+  });
+  const { all, completed, important } = checkedData;
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCheckedData({ ...checkedData, [e.target.name]: e.target.checked });
+  };
+
   return (
     <BacklogFooterStyles>
       <Title>
         <h3>Backlog manager</h3>
       </Title>
       <FilterOptions>
-        <label htmlFor="all">
-          <span>All</span>
-
-          <input type="checkbox" />
-        </label>
-        <label htmlFor="completed">
-          <span>Completed</span>
-          <input type="checkbox" />
-        </label>
-        <label htmlFor="important">
-          <span>Important</span>
-          <input type="checkbox" />
-        </label>
+        <legend>Options</legend>
+        <input
+          type="checkbox"
+          checked={all}
+          name="all"
+          onChange={handleChange}
+          id="all"
+        />
+        <label htmlFor="all">all</label>
+        <input
+          type="checkbox"
+          checked={completed}
+          name="completed"
+          onChange={handleChange}
+          id="completed"
+        />
+        <label htmlFor="completed">completed</label>
+        <input
+          type="checkbox"
+          checked={important}
+          name="important"
+          onChange={handleChange}
+          id="important"
+        />
+        <label htmlFor="important">important</label>
       </FilterOptions>
     </BacklogFooterStyles>
   );
@@ -35,14 +58,71 @@ const BacklogFooterStyles = styled.footer`
 
 const Title = styled.div`
   flex: 1;
-  flex-basis: 50%;
-  border: 3px solid blue;
+  flex-basis: 30%;
+  text-transform: capitalize;
+  h3 {
+    border-bottom: 2px solid ${({ theme }) => theme.colors.primary};
+    width: 70%;
+  }
 `;
 
-const FilterOptions = styled.div`
+const FilterOptions = styled.fieldset`
+  ${({ theme }) => theme.shadow.elevations[2]};
   ${handleFlex('row', 'space-between', 'center')};
-  border: 3px solid red;
+  border: 2px solid ${({ theme }) => theme.colors.primary};
+  width: 50%;
   flex: 2;
+  padding: 0.5rem 1rem;
+  input[type='checkbox'] {
+    position: absolute;
+    opacity: 0;
+  }
+  input[type='checkbox'] + label {
+    display: block;
+    position: relative;
+    padding-left: 2rem;
+  }
+  input[type='checkbox'] + label:before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: -4px;
+    width: 22px;
+    height: 22px;
+    background: none;
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    border-radius: 50%;
+  }
+  input[type='checkbox']:checked + label:before {
+    background: ${({ theme }) => theme.colors.primary};
+  }
 `;
 
 export default BacklogFooter;
+
+// label {
+//   display: flex;
+//   align-items: center;
+//   z-index: 1;
+//   span {
+//     font-size: 1.7rem;
+//   }
+//   input[type='checkbox'] {
+//     /* visibility: hidden; */
+//   }
+// }
+// .filled,
+// .unfilled {
+//   width: 2rem;
+//   height: 2rem;
+//   border: 2px solid ${({ theme }) => theme.colors.primary};
+//   border-radius: 50%;
+//   margin: 0.5rem;
+//   cursor: pointer;
+// }
+// .unfilled {
+//   background: ${({ theme }) => theme.colors.primary};
+// }
+// .filled {
+//   background: ${({ theme }) => theme.colors.white};
+// }
