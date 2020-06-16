@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled, { ThemeProvider, DefaultTheme } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
+import { handleFlex } from '../styled/utils/flex';
 
 interface Props {
   children: React.ReactNode;
@@ -48,9 +49,10 @@ const theme: DefaultTheme = {
 };
 
 export const Page = styled.section`
-  max-width: ${({ theme }) => theme.appSize};
+  max-width: ${({ theme }) => theme.size.maxWidth};
   height: 100%;
   margin: 0 auto;
+  ${handleFlex('column', 'center', 'center')};
 `;
 
 const Main = styled.main`
