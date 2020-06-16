@@ -1,23 +1,7 @@
 import { State, ActionTypes, ActionTypesReducer } from './types.backlog';
 
 const initialState: State = {
-  backlogs: [
-    {
-      text: 'Learn Rust',
-      completed: false,
-      important: false,
-    },
-    {
-      text: 'Learn to test applications',
-      completed: false,
-      important: true,
-    },
-    {
-      text: 'Learn C',
-      completed: false,
-      important: true,
-    },
-  ],
+  backlogs: [],
 };
 export default (state: State = initialState, action: ActionTypesReducer) => {
   switch (action.type) {

@@ -1,4 +1,5 @@
 export interface Backlog {
+  id: string;
   text: string;
   completed: boolean;
   important: boolean;

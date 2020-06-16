@@ -10,14 +10,17 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "dependencies": {
+    "mongoose": "^5.9.19",
     "next": "^9.4.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "styled-components": "^5.1.1"
   },
   "devDependencies": {
+    "@types/mongoose": "^5.7.24",
     "@types/node": "^14.0.13",
     "@types/react": "^16.9.36",
     "@types/react-redux": "^7.1.9",
