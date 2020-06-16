@@ -2,6 +2,7 @@ export interface Backlog {
   id: string;
   text: string;
   completed: boolean;
+  desc: string;
   important: boolean;
   createdAt: string;
 }

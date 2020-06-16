@@ -4,6 +4,7 @@ interface Backlog extends Document {
   text: string;
   completed: boolean;
   important: boolean;
+  desc: string;
   createdAt: string;
 }
 
@@ -20,6 +21,10 @@ const backlogSchema = new Schema<Backlog>({
   important: {
     type: Boolean,
     default: false,
+  },
+  desc: {
+    type: String,
+    maxlength: 200,
   },
   createdAt: {
     type: Date,

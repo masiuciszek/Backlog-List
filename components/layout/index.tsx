@@ -21,7 +21,7 @@ const theme: DefaultTheme = {
   colors: {
     primary: '#031326',
     primaryShadow: 'rgba(3, 19, 38,.6)',
-    secondary: '#031326',
+    secondary: '#a3b3c6',
     secondaryShadow: 'rgba(47, 68, 92,.6)',
     black: '#030506',
     white: '#fff',

@@ -1,11 +1,28 @@
 import * as React from 'react';
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import { Page } from '../components/layout';
 import Title from '../components/page.elements/Title';
 import BacklogList from '../components/backlogList/Backlog.list';
-interface Props {}
+import { useDispatch } from 'react-redux';
+import { getBacklogs } from '../store/backlog_list/backlog.actions';
 
-const HomePage: React.FC<NextPage> = () => {
+export interface Backlog {
+  id: string;
+  text: string;
+  completed: boolean;
+  important: boolean;
+  createdAt: string;
+}
+
+interface Props {
+  backlogs: Backlog[];
+}
+
+const HomePage: NextPage<Props> = ({ backlogs }) => {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(getBacklogs(backlogs));
+  }, []);
   return (
     <>
       <Title main="Backlog List" />
@@ -15,4 +32,17 @@ const HomePage: React.FC<NextPage> = () => {
     </>
   );
 };
+
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const res = await fetch('http://localhost:3000/api/backlogs');
+  const data: { success: boolean; data: Backlog[] } = await res.json();
+  const resData: Backlog[] = data.data;
+
+  return {
+    props: {
+      backlogs: resData,
+    },
+  };
+};
+
 export default HomePage;

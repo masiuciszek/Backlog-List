@@ -10,6 +10,7 @@
     "lint": "eslint '*/**/*.{js,ts,tsx}' --quiet --fix"
   },
   "dependencies": {
+    "date-fns": "^2.14.0",
     "mongoose": "^5.9.19",
     "next": "^9.4.4",
     "react": "^16.13.1",
