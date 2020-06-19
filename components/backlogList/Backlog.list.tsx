@@ -38,6 +38,7 @@ const StyledBacklog = styled.div`
 
 const ListStyles = styled.ul`
   width: 100%;
+  margin: 6rem 0;
 `;
 
 export default BacklogList;

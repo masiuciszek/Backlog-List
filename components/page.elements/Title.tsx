@@ -39,7 +39,7 @@ const Title: React.FC<Props<string, boolean>> = ({
   };
   return (
     <StyledTitle center={center} bg={bg} color={color}>
-      <h1>{main}</h1>
+      y <h1>{main}</h1>
       {subTitle && <h3>{subTitle}</h3>}
       {cta && (
         <Link href={options.path}>

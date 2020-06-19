@@ -1,26 +1,12 @@
 import {
-  AddAction,
+  AddBacklogAction,
   ActionTypes,
   GetBacklogAction,
   Backlog,
+  BacklogAddData,
+  DeleteBacklogAction,
 } from './types.backlog';
 import { Dispatch } from 'react';
-
-// export const getBacklogs = () => async (
-//   dispatch: Dispatch<GetBacklogAction>,
-// ) => {
-//   try {
-//     const res = await fetch('http://localhost:3000/api/backlogs');
-//     const data: { success: boolean; data: Backlog[] } = await res.json();
-//     const responseData = data.data;
-//     dispatch({
-//       type: ActionTypes.GET_BACKLOGS,
-//       payload: responseData,
-//     });
-//   } catch (err) {
-//     console.error(err);
-//   }
-// };
 
 export const getBacklogs = (backlogs: Backlog[]): GetBacklogAction => {
   return {
@@ -29,9 +15,45 @@ export const getBacklogs = (backlogs: Backlog[]): GetBacklogAction => {
   };
 };
 
-export const addBacklog = (newBacklog: Backlog): AddAction => {
-  return {
-    type: ActionTypes.ADD_BACKLOG,
-    payload: newBacklog,
-  };
+interface ResponseDataBacklog {
+  success: true;
+  data: BacklogAddData;
+}
+
+export const addBacklog = (newBacklog: BacklogAddData) => async (
+  dispatch: Dispatch<AddBacklogAction>,
+) => {
+  try {
+    const response = await fetch('http://localhost:3000/api/backlogs', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newBacklog),
+    });
+    const resData: ResponseDataBacklog = await response.json();
+    const data = await resData.data;
+    dispatch({
+      type: ActionTypes.ADD_BACKLOG,
+      payload: data,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const deleteBacklog = (backlogId: string) => async (
+  dispatch: Dispatch<DeleteBacklogAction>,
+) => {
+  try {
+    await fetch(`http://localhost:3000/api/backlogs/${backlogId}`, {
+      method: 'DELETE',
+    });
+    dispatch({
+      type: ActionTypes.DELETE_BACKLOG,
+      payload: backlogId,
+    });
+  } catch (err) {
+    console.error(err);
+  }
 };

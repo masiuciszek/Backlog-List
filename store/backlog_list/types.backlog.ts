@@ -8,8 +8,17 @@ export interface Backlog {
   createdAt: string;
 }
 
+export interface BacklogAddData {
+  text: string;
+  completed: boolean;
+  desc: string;
+  liked: boolean;
+  important: boolean;
+}
+
 export interface State {
   backlogs: Backlog[];
+  isLoading: boolean;
 }
 
 export enum ActionTypes {
@@ -21,13 +30,21 @@ export enum ActionTypes {
   CLEAR_CURRENT = 'CLEAR_CURRENT',
 }
 
-export interface AddAction {
+export interface AddBacklogAction {
   type: ActionTypes.ADD_BACKLOG;
-  payload: Backlog;
+  payload: BacklogAddData;
 }
+
 export interface GetBacklogAction {
   type: ActionTypes.GET_BACKLOGS;
   payload: Backlog[];
 }
+export interface DeleteBacklogAction {
+  type: ActionTypes.DELETE_BACKLOG;
+  payload: string; // ID
+}
 
-export type ActionTypesReducer = AddAction | GetBacklogAction;
+export type ActionTypesReducer =
+  | AddBacklogAction
+  | GetBacklogAction
+  | DeleteBacklogAction;
