@@ -2,13 +2,9 @@ import * as React from 'react';
 import { Backlog } from '../../store/backlog_list/types.backlog';
 import styled from 'styled-components';
 import { handleFlex } from '../styled/utils/flex';
-import { compareAsc, format } from 'date-fns';
+import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
-import {
-  deleteBacklog,
-  updateFavorite,
-} from '../../store/backlog_list/backlog.actions';
-import useToggle from '../../src/hooks/useToggle';
+import { updateFavorite } from '../../store/backlog_list/backlog.actions';
 
 interface Props {
   item: Backlog;
@@ -23,7 +19,7 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
 
   return (
     <StyledItem>
-      <Complete completed={completed} onClick={() => onDelete(item)}>
+      <Complete completed={completed}>
         <div className="circle" />
       </Complete>
       <Wrapper>
@@ -34,6 +30,9 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
             new Date(Number(year), Number(month), Number(day)),
             'yyyy-MM-dd',
           )}
+          <span id="deleteIcon" onClick={() => onDelete(item)}>
+            ⤬
+          </span>
         </p>
 
         <p>{desc}</p>
@@ -60,6 +59,8 @@ const StyledItem = styled.li`
   border-radius: 1rem;
   ${({ theme }) => theme.shadow.elevations[1]};
   margin: 1.3rem 0;
+  position: relative;
+
 `;
 
 const Wrapper = styled.div`
@@ -69,6 +70,7 @@ const Wrapper = styled.div`
   align-items: center;
   p {
     font-size: 2rem;
+
     &:nth-child(1) {
       text-transform: capitalize;
       width: 35%;
@@ -81,6 +83,13 @@ const Wrapper = styled.div`
       width: 79%;
       font-size: 1.6rem;
     }
+  }
+  #deleteIcon {
+    font-size: 3rem;
+    top: 0.5rem;
+    left: 1rem;
+    position: relative;
+    cursor: pointer;
   }
 `;
 

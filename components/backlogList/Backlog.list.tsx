@@ -5,13 +5,13 @@ import styled from 'styled-components';
 import BacklogItem from './BacklogItem';
 
 import BacklogFooter from './BacklogFooter';
-import { selectBacklogs } from '../../store/backlog_list/Backlog.select';
+import {
+  selectBacklogs,
+  selectFilteredBacklogs,
+} from '../../store/backlog_list/Backlog.select';
 import BacklogForm from './Backlog.form';
 import useToggle from '../../src/hooks/useToggle';
-import {
-  deleteBacklog,
-  setCurrent,
-} from '../../store/backlog_list/backlog.actions';
+import { setCurrent } from '../../store/backlog_list/backlog.actions';
 import Modal from '../elements/Modal';
 import { Backlog } from '../../store/backlog_list/types.backlog';
 
@@ -19,6 +19,9 @@ interface Props {}
 
 const BacklogList: React.FC<Props> = () => {
   const backlogs = useSelector((state: AppState) => selectBacklogs(state));
+  const filteredBacklogs = useSelector((state: AppState) =>
+    selectFilteredBacklogs(state),
+  );
 
   const [showModal, toggleModal] = useToggle(false);
 
@@ -33,7 +36,21 @@ const BacklogList: React.FC<Props> = () => {
     <StyledBacklog>
       <BacklogForm />
       <ListStyles>
-        {backlogs.length > 0 ? (
+        {/* {
+        backlogs.length > 0 ? (
+          backlogs.map((item) => (
+            <BacklogItem key={item._id} item={item} onDelete={handleDelete} />
+          ))
+        ) : (
+          <h3>...Loading</h3>
+        )
+        } */}
+
+        {filteredBacklogs.length > 0 ? (
+          filteredBacklogs.map((item) => (
+            <BacklogItem key={item._id} item={item} onDelete={handleDelete} />
+          ))
+        ) : backlogs.length > 0 ? (
           backlogs.map((item) => (
             <BacklogItem key={item._id} item={item} onDelete={handleDelete} />
           ))

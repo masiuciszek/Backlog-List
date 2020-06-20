@@ -3,6 +3,7 @@ import Backlog from '../../lib/models/Backlog';
 
 const initialState: State = {
   backlogs: [],
+  filteredBacklogs: [],
   current: null,
   isLoading: true,
 };
@@ -48,6 +49,22 @@ export default (state: State = initialState, action: ActionTypesReducer) => {
         isLading: false,
       };
 
+    case ActionTypes.FILTER_BACKLOGS_BY_FAVORITE:
+      return {
+        ...state,
+        filteredBacklogs: state.backlogs.filter((backlog) => backlog.liked),
+      };
+
+    case ActionTypes.FILTER_BACKLOGS_BY_COMPLETED:
+      return {
+        ...state,
+        backlogs: state.backlogs.filter((backlog) => backlog.completed),
+      };
+    case ActionTypes.CLEAR_FILTERED:
+      return {
+        ...state,
+        filteredBacklogs: [],
+      };
     default:
       return state;
   }

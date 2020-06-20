@@ -18,6 +18,7 @@ export interface BacklogAddData {
 
 export interface State {
   backlogs: Backlog[];
+  filteredBacklogs: Backlog[];
   current: null | Backlog;
   isLoading: boolean;
 }
@@ -30,6 +31,9 @@ export enum ActionTypes {
   UPDATE_FAVORITE = 'UPDATE_FAVORITE',
   SET_CURRENT = 'SET_CURRENT',
   CLEAR_CURRENT = 'CLEAR_CURRENT',
+  FILTER_BACKLOGS_BY_FAVORITE = 'FILTER_BACKLOGS_BY_FAVORITE',
+  FILTER_BACKLOGS_BY_COMPLETED = 'FILTER_BACKLOGS_BY_COMPLETED',
+  CLEAR_FILTERED = 'CLEAR_FILTERED',
 }
 
 export interface AddBacklogAction {
@@ -56,6 +60,15 @@ export interface UpdateFavorite {
   type: ActionTypes.UPDATE_FAVORITE;
   payload: string; // ID
 }
+export interface FilterByFavorite {
+  type: ActionTypes.FILTER_BACKLOGS_BY_FAVORITE;
+}
+export interface FilterByCompleted {
+  type: ActionTypes.FILTER_BACKLOGS_BY_COMPLETED;
+}
+export interface ClearFilter {
+  type: ActionTypes.CLEAR_FILTERED;
+}
 
 export type ActionTypesReducer =
   | AddBacklogAction
@@ -63,4 +76,7 @@ export type ActionTypesReducer =
   | DeleteBacklogAction
   | SetCurrentAction
   | ClearCurrentAction
-  | UpdateFavorite;
+  | UpdateFavorite
+  | FilterByCompleted
+  | FilterByFavorite
+  | ClearFilter;

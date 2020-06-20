@@ -1,6 +1,11 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import { handleFlex } from '../styled/utils/flex';
+import { useDispatch } from 'react-redux';
+import {
+  filterByFavorite,
+  clearFilter,
+} from '../../store/backlog_list/backlog.actions';
 interface Props {}
 
 const BacklogFooter: React.FC<Props> = () => {
@@ -15,12 +20,16 @@ const BacklogFooter: React.FC<Props> = () => {
     setCheckedData({ ...checkedData, [e.target.name]: e.target.checked });
   };
 
+  const dispatch = useDispatch();
+
   React.useEffect(() => {
     if (all) {
       setCheckedData({ all: true, completed: false, liked: false });
+      dispatch(clearFilter());
     }
     if (liked) {
       setCheckedData({ all: false, completed: false, liked: true });
+      dispatch(filterByFavorite());
     }
     if (completed) {
       setCheckedData({ all: false, completed: true, liked: false });

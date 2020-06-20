@@ -8,7 +8,17 @@ export const selectBacklogs = createSelector(
   [backlogState],
   (backlog: State) => backlog.backlogs,
 );
+
+export const selectFilteredBacklogs = createSelector(
+  [backlogState],
+  (backlog: State) => backlog.filteredBacklogs,
+);
+
 export const selectCurrent = createSelector(
   [backlogState],
   (backlog: State) => backlog.current,
+);
+export const selectIsLoading = createSelector(
+  [backlogState],
+  (backlog: State) => backlog.isLoading,
 );

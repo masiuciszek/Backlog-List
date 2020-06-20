@@ -8,6 +8,8 @@ import {
   SetCurrentAction,
   ClearCurrentAction,
   UpdateFavorite,
+  FilterByFavorite,
+  ClearFilter,
 } from './types.backlog';
 import { Dispatch } from 'react';
 
@@ -91,5 +93,17 @@ export const setCurrent = (backlog: Backlog): SetCurrentAction => {
 export const clearCurrent = (): ClearCurrentAction => {
   return {
     type: ActionTypes.CLEAR_CURRENT,
+  };
+};
+
+export const filterByFavorite = (): FilterByFavorite => {
+  return {
+    type: ActionTypes.FILTER_BACKLOGS_BY_FAVORITE,
+  };
+};
+
+export const clearFilter = (): ClearFilter => {
+  return {
+    type: ActionTypes.CLEAR_FILTERED,
   };
 };
