@@ -96,56 +96,45 @@ const FilterOptions = styled.fieldset`
   width: 50%;
   flex: 2;
   padding: 0.5rem 1rem;
+
   input[type='checkbox'] {
-    position: absolute;
     opacity: 0;
   }
-  input[type='checkbox'] + label {
-    display: block;
+  label {
     position: relative;
-    padding-left: 2rem;
   }
-  input[type='checkbox'] + label:before {
+
+  label::before {
     content: '';
-    position: absolute;
-    top: 4px;
-    left: -4px;
+    background: url('/checked.svg');
+    overflow: none;
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
     width: 22px;
-    height: 22px;
-    background: none;
-    border: 2px solid ${({ theme }) => theme.colors.primary};
-    border-radius: 50%;
+    height: 32px;
+    position: absolute;
+    left: -39px;
+    top: -1px;
+
+    transform: scale(0) rotateZ(180deg);
+    transition: all 0.4s cubic-bezier(0.54, 0.01, 0, 1.49);
   }
-  input[type='checkbox']:checked + label:before {
-    background: ${({ theme }) => theme.colors.primary};
+
+  input[type='checkbox']:checked + label::before {
+    transform: scale(1) rotateZ(0deg);
+  }
+
+  label::after {
+    content: '';
+    border: 2px solid ${({ theme }) => theme.colors.primary};
+    width: 29px;
+    height: 29px;
+    position: absolute;
+    left: -42px;
+    top: 1px;
+    border-radius: 50%;
   }
 `;
 
 export default BacklogFooter;
-
-// label {
-//   display: flex;
-//   align-items: center;
-//   z-index: 1;
-//   span {
-//     font-size: 1.7rem;
-//   }
-//   input[type='checkbox'] {
-//     /* visibility: hidden; */
-//   }
-// }
-// .filled,
-// .unfilled {
-//   width: 2rem;
-//   height: 2rem;
-//   border: 2px solid ${({ theme }) => theme.colors.primary};
-//   border-radius: 50%;
-//   margin: 0.5rem;
-//   cursor: pointer;
-// }
-// .unfilled {
-//   background: ${({ theme }) => theme.colors.primary};
-// }
-// .filled {
-//   background: ${({ theme }) => theme.colors.white};
-// }

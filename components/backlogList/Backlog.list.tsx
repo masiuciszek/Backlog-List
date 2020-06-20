@@ -31,6 +31,13 @@ const BacklogList: React.FC<Props> = () => {
     toggleModal();
     dispatch(setCurrent(backlog));
   };
+  // For deleting ad updating backlog
+  // setting current in global state
+  // and from there delete or update the backlog
+  const handleModal = (backlog: Backlog): void => {
+    toggleModal();
+    dispatch(setCurrent(backlog));
+  };
 
   return (
     <StyledBacklog>

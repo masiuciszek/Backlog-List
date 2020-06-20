@@ -32,7 +32,7 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
       </Complete>
       <Wrapper>
         <p>
-          {text}
+          {text} <span id="edit">✎</span>
           <br />
           {format(
             new Date(Number(year), Number(month), Number(day)),
@@ -97,6 +97,11 @@ const Wrapper = styled.div`
     left: 1rem;
     position: relative;
     cursor: pointer;
+  }
+  #edit {
+    cursor: pointer;
+    font-size: 2rem;
+    margin-left: 1rem;
   }
 `;
 
