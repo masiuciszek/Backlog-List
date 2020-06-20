@@ -97,7 +97,9 @@ const BacklogForm: React.FC<Props> = () => {
           value={desc}
         />
       </label>
-      <Btn type="submit">New Backlog</Btn>
+      {text.length > 8 && desc.length > 15 && (
+        <Btn type="submit">New Backlog</Btn>
+      )}
     </StyledForm>
   );
 };

@@ -9,7 +9,7 @@ import useToggle from '../../src/hooks/useToggle';
 
 interface Props {
   item: Backlog;
-  onDelete: (id: string) => void;
+  onDelete: (backlog: Backlog) => void;
 }
 
 const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
@@ -19,7 +19,7 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
 
   return (
     <StyledItem>
-      <Complete completed={completed} onClick={() => onDelete(_id)}>
+      <Complete completed={completed} onClick={() => onDelete(item)}>
         <div className="circle" />
       </Complete>
       <Wrapper>

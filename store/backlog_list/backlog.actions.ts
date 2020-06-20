@@ -5,6 +5,8 @@ import {
   Backlog,
   BacklogAddData,
   DeleteBacklogAction,
+  SetCurrentAction,
+  ClearCurrentAction,
 } from './types.backlog';
 import { Dispatch } from 'react';
 
@@ -56,4 +58,16 @@ export const deleteBacklog = (backlogId: string) => async (
   } catch (err) {
     console.error(err);
   }
+};
+
+export const setCurrent = (backlog: Backlog): SetCurrentAction => {
+  return {
+    type: ActionTypes.SET_CURRENT,
+    payload: backlog,
+  };
+};
+export const clearCurrent = (): ClearCurrentAction => {
+  return {
+    type: ActionTypes.CLEAR_CURRENT,
+  };
 };

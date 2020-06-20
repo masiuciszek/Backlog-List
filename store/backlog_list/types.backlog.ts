@@ -18,6 +18,7 @@ export interface BacklogAddData {
 
 export interface State {
   backlogs: Backlog[];
+  current: null | Backlog;
   isLoading: boolean;
 }
 
@@ -43,8 +44,17 @@ export interface DeleteBacklogAction {
   type: ActionTypes.DELETE_BACKLOG;
   payload: string; // ID
 }
+export interface SetCurrentAction {
+  type: ActionTypes.SET_CURRENT;
+  payload: Backlog;
+}
+export interface ClearCurrentAction {
+  type: ActionTypes.CLEAR_CURRENT;
+}
 
 export type ActionTypesReducer =
   | AddBacklogAction
   | GetBacklogAction
-  | DeleteBacklogAction;
+  | DeleteBacklogAction
+  | SetCurrentAction
+  | ClearCurrentAction;

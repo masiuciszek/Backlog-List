@@ -8,8 +8,12 @@ import BacklogFooter from './BacklogFooter';
 import { selectBacklogs } from '../../store/backlog_list/Backlog.select';
 import BacklogForm from './Backlog.form';
 import useToggle from '../../src/hooks/useToggle';
-import { deleteBacklog } from '../../store/backlog_list/backlog.actions';
+import {
+  deleteBacklog,
+  setCurrent,
+} from '../../store/backlog_list/backlog.actions';
 import Modal from '../elements/Modal';
+import { Backlog } from '../../store/backlog_list/types.backlog';
 
 interface Props {}
 
@@ -20,8 +24,9 @@ const BacklogList: React.FC<Props> = () => {
 
   const dispatch = useDispatch();
 
-  const handleDelete = (id: string): void => {
+  const handleDelete = (backlog: Backlog): void => {
     toggleModal();
+    dispatch(setCurrent(backlog));
   };
 
   return (
@@ -42,6 +47,7 @@ const BacklogList: React.FC<Props> = () => {
         desc="This can't be re done"
         onClose={toggleModal}
         on={showModal}
+        isDeleteModal
       />
 
       <BacklogFooter />
