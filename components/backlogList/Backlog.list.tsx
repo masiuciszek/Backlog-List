@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { AppState } from '../../store';
 import styled from 'styled-components';
 import BacklogItem from './BacklogItem';
@@ -7,22 +7,43 @@ import BacklogItem from './BacklogItem';
 import BacklogFooter from './BacklogFooter';
 import { selectBacklogs } from '../../store/backlog_list/Backlog.select';
 import BacklogForm from './Backlog.form';
+import useToggle from '../../src/hooks/useToggle';
+import { deleteBacklog } from '../../store/backlog_list/backlog.actions';
+import Modal from '../elements/Modal';
 
 interface Props {}
 
 const BacklogList: React.FC<Props> = () => {
   const backlogs = useSelector((state: AppState) => selectBacklogs(state));
 
+  const [showModal, toggleModal] = useToggle(false);
+
+  const dispatch = useDispatch();
+
+  const handleDelete = (id: string): void => {
+    toggleModal();
+  };
+
   return (
     <StyledBacklog>
       <BacklogForm />
       <ListStyles>
         {backlogs.length > 0 ? (
-          backlogs.map((item) => <BacklogItem key={item.text} item={item} />)
+          backlogs.map((item) => (
+            <BacklogItem key={item._id} item={item} onDelete={handleDelete} />
+          ))
         ) : (
           <h3>...Loading</h3>
         )}
       </ListStyles>
+
+      <Modal
+        title="Are you sure to delete your backlog?"
+        desc="This can't be re done"
+        onClose={toggleModal}
+        on={showModal}
+      />
+
       <BacklogFooter />
     </StyledBacklog>
   );

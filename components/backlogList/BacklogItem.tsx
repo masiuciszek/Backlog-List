@@ -3,18 +3,23 @@ import { Backlog } from '../../store/backlog_list/types.backlog';
 import styled from 'styled-components';
 import { handleFlex } from '../styled/utils/flex';
 import { compareAsc, format } from 'date-fns';
+import { useDispatch } from 'react-redux';
+import { deleteBacklog } from '../../store/backlog_list/backlog.actions';
+import useToggle from '../../src/hooks/useToggle';
+
 interface Props {
   item: Backlog;
+  onDelete: (id: string) => void;
 }
 
-const BacklogItem: React.FC<Props> = ({ item }) => {
-  const { text, completed, important, createdAt, desc, liked } = item;
+const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
+  const { _id, text, completed, important, createdAt, desc, liked } = item;
   let date = createdAt.slice(0, 10).split('-');
   const [year, month, day] = date;
 
   return (
     <StyledItem>
-      <Complete completed={completed}>
+      <Complete completed={completed} onClick={() => onDelete(_id)}>
         <div className="circle" />
       </Complete>
       <Wrapper>
