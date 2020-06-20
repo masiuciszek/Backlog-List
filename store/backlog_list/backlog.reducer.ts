@@ -1,4 +1,5 @@
 import { State, ActionTypes, ActionTypesReducer } from './types.backlog';
+import Backlog from '../../lib/models/Backlog';
 
 const initialState: State = {
   backlogs: [],
@@ -36,6 +37,15 @@ export default (state: State = initialState, action: ActionTypesReducer) => {
       return {
         ...state,
         current: null,
+      };
+
+    case ActionTypes.UPDATE_FAVORITE:
+      return {
+        ...state,
+        backlogs: state.backlogs.map((b) =>
+          b._id === action.payload ? { ...b, liked: !b.liked } : b,
+        ),
+        isLading: false,
       };
 
     default:

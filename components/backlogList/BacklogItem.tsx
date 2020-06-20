@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { handleFlex } from '../styled/utils/flex';
 import { compareAsc, format } from 'date-fns';
 import { useDispatch } from 'react-redux';
-import { deleteBacklog } from '../../store/backlog_list/backlog.actions';
+import {
+  deleteBacklog,
+  updateFavorite,
+} from '../../store/backlog_list/backlog.actions';
 import useToggle from '../../src/hooks/useToggle';
 
 interface Props {
@@ -16,6 +19,7 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
   const { _id, text, completed, important, createdAt, desc, liked } = item;
   let date = createdAt.slice(0, 10).split('-');
   const [year, month, day] = date;
+  const dispatch = useDispatch();
 
   return (
     <StyledItem>
@@ -34,7 +38,12 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
 
         <p>{desc}</p>
       </Wrapper>
-      <Star>
+      <Star
+        onClick={() => {
+          console.log('update star');
+          dispatch(updateFavorite(_id, { liked: !liked }));
+        }}
+      >
         <img src={liked ? '/filled.png' : '/unfilled.png'} alt="star" />
       </Star>
     </StyledItem>

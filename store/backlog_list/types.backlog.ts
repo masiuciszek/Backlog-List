@@ -27,6 +27,7 @@ export enum ActionTypes {
   ADD_BACKLOG = 'ADD_BACKLOG',
   DELETE_BACKLOG = 'DELETE_BACKLOG',
   EDIT_BACKLOG = 'EDIT_BACKLOG',
+  UPDATE_FAVORITE = 'UPDATE_FAVORITE',
   SET_CURRENT = 'SET_CURRENT',
   CLEAR_CURRENT = 'CLEAR_CURRENT',
 }
@@ -51,10 +52,15 @@ export interface SetCurrentAction {
 export interface ClearCurrentAction {
   type: ActionTypes.CLEAR_CURRENT;
 }
+export interface UpdateFavorite {
+  type: ActionTypes.UPDATE_FAVORITE;
+  payload: string; // ID
+}
 
 export type ActionTypesReducer =
   | AddBacklogAction
   | GetBacklogAction
   | DeleteBacklogAction
   | SetCurrentAction
-  | ClearCurrentAction;
+  | ClearCurrentAction
+  | UpdateFavorite;

@@ -7,13 +7,25 @@ const BacklogFooter: React.FC<Props> = () => {
   const [checkedData, setCheckedData] = React.useState({
     all: true,
     completed: false,
-    important: false,
+    liked: false,
   });
-  const { all, completed, important } = checkedData;
+  const { all, completed, liked } = checkedData;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCheckedData({ ...checkedData, [e.target.name]: e.target.checked });
   };
+
+  React.useEffect(() => {
+    if (all) {
+      setCheckedData({ all: true, completed: false, liked: false });
+    }
+    if (liked) {
+      setCheckedData({ all: false, completed: false, liked: true });
+    }
+    if (completed) {
+      setCheckedData({ all: false, completed: true, liked: false });
+    }
+  }, [completed, liked, all]);
 
   return (
     <BacklogFooterStyles>
@@ -40,12 +52,12 @@ const BacklogFooter: React.FC<Props> = () => {
         <label htmlFor="completed">completed</label>
         <input
           type="checkbox"
-          checked={important}
-          name="important"
+          checked={liked}
+          name="liked"
           onChange={handleChange}
-          id="important"
+          id="liked"
         />
-        <label htmlFor="important">important</label>
+        <label htmlFor="liked">liked</label>
       </FilterOptions>
     </BacklogFooterStyles>
   );

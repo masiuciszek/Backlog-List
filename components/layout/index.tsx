@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled, { ThemeProvider, DefaultTheme } from 'styled-components';
 import GlobalStyles from './GlobalStyles';
 import { handleFlex } from '../styled/utils/flex';
+import Navbar from '../page.elements/Navbar';
 
 interface Props {
   children: React.ReactNode;
@@ -64,6 +65,7 @@ const Layout: React.FC<Props> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
+      <Navbar className="nav" navTitle="Backlog Manager" />
       <Main>{children}</Main>
     </ThemeProvider>
   );

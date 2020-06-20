@@ -7,6 +7,7 @@ import {
   DeleteBacklogAction,
   SetCurrentAction,
   ClearCurrentAction,
+  UpdateFavorite,
 } from './types.backlog';
 import { Dispatch } from 'react';
 
@@ -54,6 +55,27 @@ export const deleteBacklog = (backlogId: string) => async (
     dispatch({
       type: ActionTypes.DELETE_BACKLOG,
       payload: backlogId,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+export const updateFavorite = (id: string, data: { liked: boolean }) => async (
+  dispatch: Dispatch<UpdateFavorite>,
+) => {
+  try {
+    await fetch(`http://localhost:3000/api/backlogs/favourite/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    dispatch({
+      type: ActionTypes.UPDATE_FAVORITE,
+      payload: id,
     });
   } catch (err) {
     console.error(err);
