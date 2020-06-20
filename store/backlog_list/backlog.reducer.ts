@@ -46,7 +46,15 @@ export default (state: State = initialState, action: ActionTypesReducer) => {
         backlogs: state.backlogs.map((b) =>
           b._id === action.payload ? { ...b, liked: !b.liked } : b,
         ),
-        isLading: false,
+        isLoading: false,
+      };
+    case ActionTypes.UPDATE_COMPLETED:
+      return {
+        ...state,
+        backlogs: state.backlogs.map((b) =>
+          b._id === action.payload ? { ...b, completed: !b.completed } : b,
+        ),
+        isLoading: false,
       };
 
     case ActionTypes.FILTER_BACKLOGS_BY_FAVORITE:
@@ -58,7 +66,7 @@ export default (state: State = initialState, action: ActionTypesReducer) => {
     case ActionTypes.FILTER_BACKLOGS_BY_COMPLETED:
       return {
         ...state,
-        backlogs: state.backlogs.filter((backlog) => backlog.completed),
+        filteredBacklogs: state.backlogs.filter((backlog) => backlog.completed),
       };
     case ActionTypes.CLEAR_FILTERED:
       return {

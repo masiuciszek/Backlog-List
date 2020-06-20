@@ -5,6 +5,7 @@ import { useDispatch } from 'react-redux';
 import {
   filterByFavorite,
   clearFilter,
+  filterByCompleted,
 } from '../../store/backlog_list/backlog.actions';
 interface Props {}
 
@@ -33,6 +34,7 @@ const BacklogFooter: React.FC<Props> = () => {
     }
     if (completed) {
       setCheckedData({ all: false, completed: true, liked: false });
+      dispatch(filterByCompleted());
     }
   }, [completed, liked, all]);
 

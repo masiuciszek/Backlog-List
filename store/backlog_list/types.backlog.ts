@@ -29,6 +29,7 @@ export enum ActionTypes {
   DELETE_BACKLOG = 'DELETE_BACKLOG',
   EDIT_BACKLOG = 'EDIT_BACKLOG',
   UPDATE_FAVORITE = 'UPDATE_FAVORITE',
+  UPDATE_COMPLETED = 'UPDATE_COMPLETED',
   SET_CURRENT = 'SET_CURRENT',
   CLEAR_CURRENT = 'CLEAR_CURRENT',
   FILTER_BACKLOGS_BY_FAVORITE = 'FILTER_BACKLOGS_BY_FAVORITE',
@@ -61,7 +62,7 @@ export interface UpdateFavorite {
   payload: string; // ID
 }
 export interface UpdateCompleted {
-  type: ActionTypes.UPDATE_FAVORITE;
+  type: ActionTypes.UPDATE_COMPLETED;
   payload: string; // ID
 }
 
@@ -84,4 +85,5 @@ export type ActionTypesReducer =
   | UpdateFavorite
   | FilterByCompleted
   | FilterByFavorite
-  | ClearFilter;
+  | ClearFilter
+  | UpdateCompleted;

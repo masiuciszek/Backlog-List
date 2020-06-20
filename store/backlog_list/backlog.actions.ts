@@ -10,6 +10,8 @@ import {
   UpdateFavorite,
   FilterByFavorite,
   ClearFilter,
+  UpdateCompleted,
+  FilterByCompleted,
 } from './types.backlog';
 import { Dispatch } from 'react';
 
@@ -83,6 +85,27 @@ export const updateFavorite = (id: string, data: { liked: boolean }) => async (
     console.error(err);
   }
 };
+export const updateCompleted = (
+  id: string,
+  data: { completed: boolean },
+) => async (dispatch: Dispatch<UpdateCompleted>) => {
+  try {
+    await fetch(`http://localhost:3000/api/backlogs/complete/${id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+
+    dispatch({
+      type: ActionTypes.UPDATE_COMPLETED,
+      payload: id,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
 
 export const setCurrent = (backlog: Backlog): SetCurrentAction => {
   return {
@@ -99,6 +122,11 @@ export const clearCurrent = (): ClearCurrentAction => {
 export const filterByFavorite = (): FilterByFavorite => {
   return {
     type: ActionTypes.FILTER_BACKLOGS_BY_FAVORITE,
+  };
+};
+export const filterByCompleted = (): FilterByCompleted => {
+  return {
+    type: ActionTypes.FILTER_BACKLOGS_BY_COMPLETED,
   };
 };
 

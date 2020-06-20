@@ -4,7 +4,10 @@ import styled from 'styled-components';
 import { handleFlex } from '../styled/utils/flex';
 import { format } from 'date-fns';
 import { useDispatch } from 'react-redux';
-import { updateFavorite } from '../../store/backlog_list/backlog.actions';
+import {
+  updateFavorite,
+  updateCompleted,
+} from '../../store/backlog_list/backlog.actions';
 
 interface Props {
   item: Backlog;
@@ -19,7 +22,12 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
 
   return (
     <StyledItem>
-      <Complete completed={completed}>
+      <Complete
+        completed={completed}
+        onClick={() => {
+          dispatch(updateCompleted(_id, { completed: !completed }));
+        }}
+      >
         <div className="circle" />
       </Complete>
       <Wrapper>
@@ -39,7 +47,6 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
       </Wrapper>
       <Star
         onClick={() => {
-          console.log('update star');
           dispatch(updateFavorite(_id, { liked: !liked }));
         }}
       >
@@ -102,13 +109,13 @@ const Complete = styled.div<CompleteProps>`
   .circle {
     border: 2px solid
       ${({ theme, completed }) =>
-        completed ? theme.colors.secondary : theme.colors.primary};
+        completed ? theme.colors.black : theme.colors.primary};
     width: 4rem;
     height: 4rem;
     border-radius: 50%;
     cursor: pointer;
     background: ${({ theme, completed }) =>
-      completed ? theme.colors.secondary : theme.colors.white};
+      completed ? theme.colors.primary : theme.colors.white};
   }
 `;
 
