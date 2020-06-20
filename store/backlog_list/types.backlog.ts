@@ -60,6 +60,11 @@ export interface UpdateFavorite {
   type: ActionTypes.UPDATE_FAVORITE;
   payload: string; // ID
 }
+export interface UpdateCompleted {
+  type: ActionTypes.UPDATE_FAVORITE;
+  payload: string; // ID
+}
+
 export interface FilterByFavorite {
   type: ActionTypes.FILTER_BACKLOGS_BY_FAVORITE;
 }
