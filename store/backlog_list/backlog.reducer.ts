@@ -32,8 +32,12 @@ export default (state: State = initialState, action: ActionTypesReducer) => {
       return {
         ...state,
         backlogs: state.backlogs.map((item) =>
-          item.text === action.payload.text
-            ? { ...item, text: action.payload.text, desc: action.payload.desc }
+          item._id === action.payload.id
+            ? {
+                ...item,
+                text: action.payload.data.text,
+                desc: action.payload.data.desc,
+              }
             : item,
         ),
         isLoading: false,

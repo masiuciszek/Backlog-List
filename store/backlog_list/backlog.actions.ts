@@ -115,20 +115,17 @@ export const editBacklog = (
   formData: FormData,
 ) => async (dispatch: Dispatch<EditBacklog>) => {
   try {
-    const response = await fetch(
-      `http://localhost:3000/api/backlogs/${backlogId}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
+    await fetch(`http://localhost:3000/api/backlogs/${backlogId}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
       },
-    );
+      body: JSON.stringify(formData),
+    });
 
     dispatch({
       type: ActionTypes.EDIT_BACKLOG,
-      payload: formData,
+      payload: { id: backlogId, data: formData },
     });
   } catch (err) {
     console.error(err);

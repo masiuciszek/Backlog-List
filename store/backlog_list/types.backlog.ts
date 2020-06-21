@@ -84,7 +84,7 @@ export interface ClearFilter {
 // for text and Description!!!
 export interface EditBacklog {
   type: ActionTypes.EDIT_BACKLOG;
-  payload: FormData;
+  payload: { id: string | undefined; data: FormData };
 }
 
 export type ActionTypesReducer =

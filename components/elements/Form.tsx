@@ -10,7 +10,7 @@ import {
   editBacklog,
   clearCurrent,
 } from '../../store/backlog_list/backlog.actions';
-
+import Router from 'next/router';
 interface Props {
   className: string;
   ctaText?: string;
@@ -75,6 +75,7 @@ const Form: React.FC<Props> = ({ className, ctaText }) => {
     } else {
       dispatch(editBacklog(currentBacklog?._id, dataToUpdate));
       dispatch(clearCurrent());
+      Router.push('/');
     }
   };
 
