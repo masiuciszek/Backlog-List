@@ -8,6 +8,7 @@ import {
   updateFavorite,
   updateCompleted,
 } from '../../store/backlog_list/backlog.actions';
+import Link from 'next/link';
 
 interface Props {
   item: Backlog;
@@ -32,7 +33,10 @@ const BacklogItem: React.FC<Props> = ({ item, onDelete }) => {
       </Complete>
       <Wrapper>
         <p>
-          {text} <span id="edit">✎</span>
+          <Link href="/backlog/[id]" as={`/backlog/${_id}`}>
+            <a id="MainTitle">{text}</a>
+          </Link>
+
           <br />
           {format(
             new Date(Number(year), Number(month), Number(day)),
@@ -61,13 +65,34 @@ const StyledItem = styled.li`
   border: 3px solid ${({ theme }) => theme.colors.black};
   width: 100%;
   display: flex;
-  align-items:center;
-  /* ${handleFlex('row', 'space-between', 'center')}; */
+  align-items: center;
   border-radius: 1rem;
   ${({ theme }) => theme.shadow.elevations[1]};
   margin: 1.3rem 0;
   position: relative;
-
+  #MainTitle {
+    color: ${({ theme }) => theme.colors.black};
+    font-size: 2rem;
+    transition: ${({ theme }) => theme.transition.mainTransition};
+    position: relative;
+    &:after {
+      content: '';
+      transition: ${({ theme }) => theme.transition.mainTransition};
+      padding: 0;
+      width: 0;
+      height: 0.3rem;
+      background: ${({ theme }) => theme.colors.primary};
+      position: absolute;
+      bottom: -9px;
+      left: 0;
+    }
+    &:hover {
+      &:after {
+        padding: 0.2rem;
+        width: 100%;
+      }
+    }
+  }
 `;
 
 const Wrapper = styled.div`
@@ -97,11 +122,6 @@ const Wrapper = styled.div`
     left: 1rem;
     position: relative;
     cursor: pointer;
-  }
-  #edit {
-    cursor: pointer;
-    font-size: 2rem;
-    margin-left: 1rem;
   }
 `;
 
