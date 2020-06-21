@@ -28,7 +28,16 @@ export default (state: State = initialState, action: ActionTypesReducer) => {
         backlogs: state.backlogs.filter((item) => item._id !== action.payload),
         isLoading: false,
       };
-
+    case ActionTypes.EDIT_BACKLOG:
+      return {
+        ...state,
+        backlogs: state.backlogs.map((item) =>
+          item.text === action.payload.text
+            ? { ...item, text: action.payload.text, desc: action.payload.desc }
+            : item,
+        ),
+        isLoading: false,
+      };
     case ActionTypes.SET_CURRENT:
       return {
         ...state,

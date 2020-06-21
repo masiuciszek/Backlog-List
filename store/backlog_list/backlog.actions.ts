@@ -110,9 +110,10 @@ export const updateCompleted = (
 };
 
 // Edit text and description!!!
-export const editBacklog = (backlogId: string, formData: FormData) => async (
-  dispatch: Dispatch<EditBacklog>,
-) => {
+export const editBacklog = (
+  backlogId: string | undefined,
+  formData: FormData,
+) => async (dispatch: Dispatch<EditBacklog>) => {
   try {
     const response = await fetch(
       `http://localhost:3000/api/backlogs/${backlogId}`,
