@@ -12,6 +12,8 @@ import {
   ClearFilter,
   UpdateCompleted,
   FilterByCompleted,
+  FormData,
+  EditBacklog,
 } from './types.backlog';
 import { Dispatch } from 'react';
 
@@ -101,6 +103,31 @@ export const updateCompleted = (
     dispatch({
       type: ActionTypes.UPDATE_COMPLETED,
       payload: id,
+    });
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+// Edit text and description!!!
+export const editBacklog = (backlogId: string, formData: FormData) => async (
+  dispatch: Dispatch<EditBacklog>,
+) => {
+  try {
+    const response = await fetch(
+      `http://localhost:3000/api/backlogs/${backlogId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      },
+    );
+
+    dispatch({
+      type: ActionTypes.EDIT_BACKLOG,
+      payload: formData,
     });
   } catch (err) {
     console.error(err);

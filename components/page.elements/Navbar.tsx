@@ -2,6 +2,7 @@ import * as React from 'react';
 import styled from 'styled-components';
 import NavList from './NavList';
 import { handleFlex } from '../styled/utils/flex';
+import Link from 'next/link';
 
 interface Props {
   className: string;
@@ -12,7 +13,9 @@ const NavBar: React.FC<Props> = ({ className, navTitle }) => {
   return (
     <nav className={className}>
       <div className="title">
-        <h3>{navTitle}</h3>
+        <Link href="/">
+          <a>{navTitle}</a>
+        </Link>
       </div>
       <NavList />
     </nav>
@@ -26,9 +29,10 @@ export default styled(NavBar)`
   ${handleFlex('row', 'space-between', 'center')};
   .title {
     width: 40%;
-    h3 {
+    a {
       font-size: 3rem;
       width: 70%;
+      display: block;
       border-bottom: 2px solid ${({ theme }) => theme.colors.white};
     }
   }

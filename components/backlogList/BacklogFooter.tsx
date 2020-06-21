@@ -36,6 +36,10 @@ const BacklogFooter: React.FC<Props> = () => {
       setCheckedData({ all: false, completed: true, liked: false });
       dispatch(filterByCompleted());
     }
+    if (!liked && !completed) {
+      setCheckedData({ all: true, completed: false, liked: false });
+      dispatch(clearFilter());
+    }
   }, [completed, liked, all]);
 
   return (

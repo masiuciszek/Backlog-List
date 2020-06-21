@@ -23,6 +23,11 @@ export interface State {
   isLoading: boolean;
 }
 
+export interface FormData {
+  text: string;
+  desc: string;
+}
+
 export enum ActionTypes {
   GET_BACKLOGS = 'GET_BACKLOGS',
   ADD_BACKLOG = 'ADD_BACKLOG',
@@ -76,6 +81,12 @@ export interface ClearFilter {
   type: ActionTypes.CLEAR_FILTERED;
 }
 
+// for text and Description!!!
+export interface EditBacklog {
+  type: ActionTypes.EDIT_BACKLOG;
+  payload: FormData;
+}
+
 export type ActionTypesReducer =
   | AddBacklogAction
   | GetBacklogAction
@@ -86,4 +97,5 @@ export type ActionTypesReducer =
   | FilterByCompleted
   | FilterByFavorite
   | ClearFilter
+  | EditBacklog
   | UpdateCompleted;

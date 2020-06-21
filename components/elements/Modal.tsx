@@ -10,6 +10,7 @@ import {
 } from '../../store/backlog_list/backlog.actions';
 import { AppState } from '../../store';
 import { selectCurrent } from '../../store/backlog_list/Backlog.select';
+import Form from './Form';
 
 interface Props {
   title: string;
@@ -19,6 +20,7 @@ interface Props {
   btn1Text?: string;
   btn2Text?: string;
   isDeleteModal?: boolean;
+  isEditModal?: boolean;
 }
 
 const Modal: React.FC<Props> = ({
@@ -29,6 +31,7 @@ const Modal: React.FC<Props> = ({
   btn1Text,
   btn2Text,
   isDeleteModal,
+  isEditModal,
 }) => {
   const dispatch = useDispatch();
   const currentBacklog = useSelector((state: AppState) => selectCurrent(state));
@@ -53,6 +56,7 @@ const Modal: React.FC<Props> = ({
       <ModalBody>
         <h1>{title}</h1>
         <p>{desc}</p>
+        {isEditModal && <Form className="Edit-form" ctaText={btn1Text} />}
         <BtnWrapper>
           {isDeleteModal && (
             <Btn onClick={handleDelete}>{btn1Text ? btn1Text : 'Confirm'}</Btn>

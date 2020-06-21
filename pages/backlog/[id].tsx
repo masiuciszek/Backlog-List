@@ -9,9 +9,12 @@ import { format } from 'date-fns';
 import { handleFlex } from '../../components/styled/utils/flex';
 import { Btn } from '../../components/styled/utils/Button';
 import useToggle from '../../src/hooks/useToggle';
+import Modal from '../../components/elements/Modal';
+import { useDispatch } from 'react-redux';
+import { setCurrent } from '../../store/backlog_list/backlog.actions';
 
 interface Props {
-  backlogItem: Backlog | undefined;
+  backlogItem: Backlog;
 }
 
 const BacklogItem: NextPage<Props> = ({ backlogItem }) => {
@@ -28,6 +31,21 @@ const BacklogItem: NextPage<Props> = ({ backlogItem }) => {
   }
 
   const [showModal, toggleModal] = useToggle(false);
+  const dispatch = useDispatch();
+
+  const handleEdit = (): void => {
+    toggleModal();
+    // let backlog: Backlog = {
+    //   _id: backlogItem?._id,
+    //   text: backlogItem?.text,
+    //   important: backlogItem?.important,
+    //   completed: backlogItem?.completed,
+    //   liked: backlogItem?.liked,
+    //   createdAt: backlogItem?.createdAt,
+    //   desc: backlogItem?.desc,
+    // };
+    dispatch(setCurrent(backlogItem));
+  };
 
   return (
     <Page>
@@ -44,9 +62,16 @@ const BacklogItem: NextPage<Props> = ({ backlogItem }) => {
           </p>
           <p>Desc: {backlogItem?.desc}</p>
 
-          <Btn onClick={toggleModal}>Edit</Btn>
+          <Btn onClick={handleEdit}>Edit</Btn>
         </Body>
       </StyledBacklogItem>
+      <Modal
+        title={`Edit Backlog "${backlogItem?.text}" `}
+        desc="Edit your backlog"
+        on={showModal}
+        onClose={toggleModal}
+        isEditModal
+      />
     </Page>
   );
 };
@@ -78,10 +103,8 @@ const Body = styled.div`
 export const getServerSideProps: GetServerSideProps = async (ctx) => {
   const { id } = ctx.query;
   const res = await fetch(`http://localhost:3000/api/backlogs/${id}`);
-  const data:
-    | undefined
-    | { success: boolean; data: Backlog } = await res.json();
-  const backlogItem: Backlog | undefined = data?.data;
+  const data: { success: boolean; data: Backlog } = await res.json();
+  const backlogItem: Backlog = data?.data;
 
   return {
     props: {
