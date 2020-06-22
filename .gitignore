@@ -6,3 +6,7 @@ node_modules/
 .variables.env/
 .variables.env
 .env*.local
+
+now.json
+/now
+now*
