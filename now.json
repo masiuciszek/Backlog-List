@@ -1,5 +1,0 @@
-{
-  "env": {
-    "MONGO_URI": "mongodb+srv://marcello:masiumasiumasiu@cluster0-cdgmt.mongodb.net/backlogmanagaer?retryWrites=true&w=majority"
-  }
-}
