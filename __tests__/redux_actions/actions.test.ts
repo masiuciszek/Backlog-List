@@ -20,17 +20,39 @@ const backlog: Backlog = {
   createdAt: '2020',
 };
 
+const backlogs = [backlog];
+
+jest.mock('../../store/backlog_list/backlog.actions');
+jest.mock('../../store/backlog_list/types.backlog');
+
 describe('actions', () => {
   test('getBacklogs should be defined ', () => {
     expect(actions.getBacklogs).toBeDefined();
+    actions.getBacklogs(backlogs);
+    expect(actions.getBacklogs).toBeCalled();
+    expect(actions.getBacklogs).toBeCalledWith(backlogs);
+    expect(actions.getBacklogs).toBeCalledTimes(1);
+    expect(actions.getBacklogs).not.toBeCalledTimes(2);
   });
   test('clearfilter action', () => {
-    expect(actions.clearFilter().type).toBe(types.ActionTypes.CLEAR_FILTERED);
+    actions.clearFilter();
+    expect(actions.clearFilter).toBeCalled();
+    expect(actions.clearFilter).toBeCalledTimes(1);
   });
   test('set current action', () => {
-    expect(actions.setCurrent(backlog).type).toBe(
-      types.ActionTypes.SET_CURRENT,
-    );
-    expect(actions.setCurrent(backlog).payload).toBe(backlog);
+    actions.setCurrent(backlog);
+    expect(actions.setCurrent).toBeCalled();
+    expect(actions.setCurrent).toBeCalledTimes(1);
+    expect(actions.setCurrent).toBeCalledWith(backlog);
+  });
+
+  test('Delete backlog action', () => {
+    let fakeId = '2122@@12##12122';
+    // expect(actions.deleteBacklog(fakeId)).toBeDefined();
+    actions.deleteBacklog(fakeId);
+    expect(actions.deleteBacklog).toBeCalledTimes(1);
+    actions.deleteBacklog('212#211');
+    expect(actions.deleteBacklog).toBeCalledTimes(2);
+    expect(actions.deleteBacklog).toBeCalledWith(fakeId);
   });
 });
